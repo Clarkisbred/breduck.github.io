@@ -1,0 +1,19 @@
+# Dependencies and build output
+node_modules/
+dist/
+build/
+
+# Environment files — real Supabase URL/keys live here locally, never
+# commit this. .env.example stays tracked as a template (no real values).
+.env
+.env.local
+.env.*.local
+
+# Supabase CLI local state
+supabase/.temp/
+supabase/.branches/
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+*.log
