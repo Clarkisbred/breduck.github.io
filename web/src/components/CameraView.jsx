@@ -11,12 +11,37 @@ export default function CameraView({ cameras = [] }) {
   const [activeId, setActiveId] = useState(cameras[0]?.id ?? null);
   const active = cameras.find((c) => c.id === activeId) || cameras[0];
 
+  // No direct web-embeddable stream yet (camera is cloud/P2P-only via Tris
+  // Home, not local RTSP) — link out to the app instead of a dead end.
+  const trisHomeLink = (
+    <p style={{ marginTop: 10, fontSize: 14 }}>
+      View live footage in the{" "}
+      
+        href="https://apps.apple.com/us/app/tris-home/id6444226037"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Tris Home app (iOS)
+      </a>{" "}
+      or{" "}
+      
+        href="https://play.google.com/store/apps/details?id=com.cz.czeye"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Tris Home app (Android)
+      </a>
+      .
+    </p>
+  );
+
   if (!cameras.length) {
     return (
       <div>
         <div className="camera-frame">
           <span>No cameras added yet — add one once you know your CCTV's model.</span>
         </div>
+        {trisHomeLink}
       </div>
     );
   }
@@ -30,6 +55,7 @@ export default function CameraView({ cameras = [] }) {
           <span>{active?.label} — stream not connected yet</span>
         )}
       </div>
+      {!active?.stream_url && trisHomeLink}
       <div className="camera-picker">
         {cameras.map((cam) => (
           <button
